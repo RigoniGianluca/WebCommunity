@@ -4,22 +4,24 @@
         <title>BOH</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
-        <div>
-            <div class="text-xl ">Inserisci le credenziali</div>
-            <div>
-                <form action="./Login.html" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                    <div>    
-                        <label>Username:</label> 
-                        <input type="string" id="username" name="username">
+    <body class="bg-gradient-to-r from-indigo-500 from-40% via-purple-500 via-70% to-pink-500 %">
+            <div class="flex flex-col items-center justify-center h-96">
+                <form action="./Login.html" method="post" class="mx-auto w-96 shadow-md px-8 pt-4 pb-8 mb-4 bg-gradient-to-r from-indigo-500/50 via-purple-500/50 to-pink-500/50 rounded-md border-2 border-purple-600">
+                    <div class="text-xl text-center mb-6">Inserisci le credenziali</div>
+                    <div class="pb-5 text-center text-xl">    
+                        <label>Username:</label><br>
+                        <input class="rounded-full border-2 border-purlpe-600" type="string" id="username" name="username">
                     </div>
-                    <div>
-                        <label>Password:</label>
-                        <input type="password" id="password" name="password">
+                    <div class="pb-5 text-center text-xl">
+                        <label>Password:</label><br>
+                        <input class="rounded-full border-2 border-purple-600" type="password" id="password" name="password">
                     </div>
-                    <div>
-                        <button value="Accedi">Accedi</button>
+                    <div class="text-center">
+                        <button class="rounded-full pl-8 pr-8 w-32 border-2 border-violet-500 hover:border-violet-600 active:border-violet-600 focus:outline-none focus:ring focus:ring-violet-300 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 " type="submit">
+                            ACCEDI
+                        </button>
                     </div>
                 </form>
+            </div>
     </body>
 </html>
