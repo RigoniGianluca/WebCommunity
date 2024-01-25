@@ -40,7 +40,7 @@
         <div class="min-h-screen  grid bg-slate-950">
           <div class="flex flex-row flex-auto justify-itmes-center w-90">
             <div
-            class="bg-slate-950 h-full flex flex-auto justify-self-end p-10 overflow-hidden text-white relative bg-right bg-[length:6  00px_500px] bg-no-repeat"
+            class="bg-slate-950 h-full flex flex-auto justify-self-end p-10 overflow-hidden text-white relative bg-right bg-[length:6  00px_500px] bg-no-repeat aspect-square"
             style="background-image: url('./images/foto.png');">
             </div>
             <div class="text-white my-auto justify-self-start font-bold text-3xl w-90">

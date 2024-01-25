@@ -36,11 +36,11 @@
                     <!-- Profile dropdown -->
                     <div class="relative ml-3">
                         <div>
-                            <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                            <a href="Profile.php" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
                                 <img class="h-8 w-8 rounded-full" src="https://img.favpng.com/1/4/11/portable-network-graphics-computer-icons-google-account-scalable-vector-graphics-computer-file-png-favpng-HScCJdtkakJXsS3T27RyikZiD.jpg" alt="">
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -48,6 +48,109 @@
         </div>
     </nav>
 
-
+    <div class="px-48">
+        <div class="flex flex-rows justify-center mt-10 mb-10">  <!--rows1-->
+            <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                <a href="">
+                    <img src="./images/vinile.png" class="border-black border-2">
+                    <div class="my-0.5 border-red-800 border-2">
+                        <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                    </div>
+                </a>
+            </div>
+            <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                <a href="">
+                    <img src="./images/vinile.png" class="border-black border-2">
+                    <div class="my-0.5 border-red-800 border-2">
+                        <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                    </div>
+                </a>
+            </div>
+            <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                <a href="">
+                    <img src="./images/vinile.png" class="border-black border-2">
+                    <div class="my-0.5 border-red-800 border-2">
+                        <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                    </div>
+                </a>
+            </div>
+            <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                <a href="">
+                    <img src="./images/vinile.png" class="border-black border-2">
+                    <div class="my-0.5 border-red-800 border-2">
+                        <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="flex flex-rows justify-center mb-10">         <!--rows2-->
+                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                    <a href="">
+                        <img src="./images/vinile.png" class="border-black border-2">
+                        <div class="my-0.5 border-red-800 border-2">
+                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                    <a href="">
+                        <img src="./images/vinile.png" class="border-black border-2">
+                        <div class="my-0.5 border-red-800 border-2">
+                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                    <a href="">
+                        <img src="./images/vinile.png" class="border-black border-2">
+                        <div class="my-0.5 border-red-800 border-2">
+                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                    <a href="">
+                        <img src="./images/vinile.png" class="border-black border-2">
+                        <div class="my-0.5 border-red-800 border-2">
+                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-rows justify-center mt-10 mb-10">               <!--rows3-->
+                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                    <a href="">
+                        <img src="./images/vinile.png" class="border-black border-2">
+                        <div class="my-0.5 border-red-800 border-2">
+                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                    <a href="">
+                        <img src="./images/vinile.png" class="border-black border-2">
+                        <div class="my-0.5 border-red-800 border-2">
+                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                    <a href="">
+                        <img src="./images/vinile.png" class="border-black border-2">
+                        <div class="my-0.5 border-red-800 border-2">
+                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                    <a href="">
+                        <img src="./images/vinile.png" class="border-black border-2">
+                        <div class="my-0.5 border-red-800 border-2">
+                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
