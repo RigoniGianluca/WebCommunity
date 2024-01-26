@@ -125,29 +125,38 @@
         <div class="mt-5 font-bold text-6xl">
             BEST SELLER
         </div>
-        <div class="flex flex-rows justify-center mt-5 mb-10">
+
         <?php
-            $json = json_decode(file_get_contents('utenti.json'), true);
-            $img="";
-            $titolo="";
-            $autore="";
-            foreach($json as $vinile){   //fixare il fatto di metterli in righe da 4
-                $img = $vinile["img"];
-                $titolo = $vinile["titolo"];
-                $autore = $vinile["autore"];
+            $vinile = json_decode(file_get_contents('vinili.json'), true);
 
-                echo '<div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
-                            <a href="">
-                                <img src=' . $img . '>
-                                <div class="my-0.5">
-                                    <div class="text-center font-semibold text-xl">' . $titolo . ' - ' .  $autore . '</div>
-                                </div>
-                            </a>
-                        </div>';
+            $vinili = count($vinile);
+            for($x=0; $x<$vinili;) {
+                echo '<div class="flex flex-rows mt-5 mb-10">';
+                for ($i = 0; $i < 4; $i++, $x++) {
+                    if($x<$vinili) {
+
+                        $img = $vinile[$x]["img"];
+                        $titolo = $vinile[$x]["titolo"];
+                        $autore = $vinile[$x]["autore"];
+
+                        echo '<div class="w-1/4 box-border h-auto mr-6 border-4 border-black">
+                                <a href="" class="relative group">
+                                    <img src="' . $img . '" alt="Avatar" class="w-full h-auto transition-opacity duration-500 ease-in-out group-hover:opacity-30">
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
+                                        <div class="bg-gray-800/75 text-white text-center p-4 rounded-lg">
+                                            OPEN
+                                        </div>
+                                    </div>
+                                    <div class="my-0.5">
+                                        <div class="text-center font-semibold text-xl">' . $titolo . ' - ' .  $autore . '</div>
+                                    </div>
+                                </a>
+                            </div>';
+                    }
+                }
+                echo '</div>';
             }
-
         ?>
-        </div>
     </div>
 
     </body>
