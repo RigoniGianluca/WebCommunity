@@ -48,109 +48,108 @@
         </div>
     </nav>
 
-    <div class="px-48">
-        <div class="flex flex-rows justify-center mt-10 mb-10">  <!--rows1-->
+    <!--<div class="mx-48">
+        <div class="mt-5 font-bold text-6xl">
+            BEST SELLER
+        </div>
+        <div class="flex flex-rows justify-center mt-5 mb-10">
             <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
                 <a href="">
-                    <img src="./images/vinile.png" class="border-black border-2">
-                    <div class="my-0.5 border-red-800 border-2">
+                    <img src="./images/vinile.png"">
+                    <div class="my-0.5">
                         <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
                     </div>
                 </a>
             </div>
             <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
                 <a href="">
-                    <img src="./images/vinile.png" class="border-black border-2">
-                    <div class="my-0.5 border-red-800 border-2">
+                    <img src="./images/vinile.png"">
+                    <div class="my-0.5">
                         <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
                     </div>
                 </a>
             </div>
             <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
                 <a href="">
-                    <img src="./images/vinile.png" class="border-black border-2">
-                    <div class="my-0.5 border-red-800 border-2">
+                    <img src="./images/vinile.png"">
+                    <div class="my-0.5">
                         <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
                     </div>
                 </a>
             </div>
             <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
                 <a href="">
-                    <img src="./images/vinile.png" class="border-black border-2">
-                    <div class="my-0.5 border-red-800 border-2">
+                    <img src="./images/vinile.png"">
+                    <div class="my-0.5">
                         <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="flex flex-rows justify-center mb-10">         <!--rows2-->
-                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
-                    <a href="">
-                        <img src="./images/vinile.png" class="border-black border-2">
-                        <div class="my-0.5 border-red-800 border-2">
-                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
-                    <a href="">
-                        <img src="./images/vinile.png" class="border-black border-2">
-                        <div class="my-0.5 border-red-800 border-2">
-                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
-                    <a href="">
-                        <img src="./images/vinile.png" class="border-black border-2">
-                        <div class="my-0.5 border-red-800 border-2">
-                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
-                    <a href="">
-                        <img src="./images/vinile.png" class="border-black border-2">
-                        <div class="my-0.5 border-red-800 border-2">
-                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
-                        </div>
-                    </a>
-                </div>
+        <div class="flex flex-rows justify-center mb-10>
+            <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                <a href="">
+                    <img src="./images/vinile.png"">
+                    <div class="my-0.5">
+                        <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                    </div>
+                </a>
             </div>
-            <div class="flex flex-rows justify-center mt-10 mb-10">               <!--rows3-->
-                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
-                    <a href="">
-                        <img src="./images/vinile.png" class="border-black border-2">
-                        <div class="my-0.5 border-red-800 border-2">
-                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
-                    <a href="">
-                        <img src="./images/vinile.png" class="border-black border-2">
-                        <div class="my-0.5 border-red-800 border-2">
-                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
-                    <a href="">
-                        <img src="./images/vinile.png" class="border-black border-2">
-                        <div class="my-0.5 border-red-800 border-2">
-                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
-                    <a href="">
-                        <img src="./images/vinile.png" class="border-black border-2">
-                        <div class="my-0.5 border-red-800 border-2">
-                            <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
-                        </div>
-                    </a>
-                </div>
+            <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                <a href="">
+                    <img src="./images/vinile.png"">
+                    <div class="my-0.5">
+                        <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                    </div>
+                </a>
             </div>
+            <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                <a href="">
+                    <img src="./images/vinile.png"">
+                    <div class="my-0.5">
+                        <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                    </div>
+                </a>
+            </div>
+            <div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                <a href="">
+                    <img src="./images/vinile.png"">
+                    <div class="my-0.5">
+                        <div class="text-center font-semibold text-xl">Titolo vinile - Autore</div>
+                    </div>
+                </a>
+            </div>
+        </div>-->
+
+    <div class="mx-48">
+        <div class="mt-5 font-bold text-6xl">
+            BEST SELLER
         </div>
+        <div class="flex flex-rows justify-center mt-5 mb-10">
+        <?php
+            $json = json_decode(file_get_contents('utenti.json'), true);
+            $img="";
+            $titolo="";
+            $autore="";
+            foreach($json as $vinile){   //fixare il fatto di metterli in righe da 4
+                $img = $vinile["img"];
+                $titolo = $vinile["titolo"];
+                $autore = $vinile["autore"];
+
+                echo '<div class="basis-1/4 box-border h-80 mr-24 border-4 border-black">
+                            <a href="">
+                                <img src=' . $img . '>
+                                <div class="my-0.5">
+                                    <div class="text-center font-semibold text-xl">' . $titolo . ' - ' .  $autore . '</div>
+                                </div>
+                            </a>
+                        </div>';
+            }
+
+        ?>
+        </div>
+    </div>
+
     </body>
 </html>
+ut
