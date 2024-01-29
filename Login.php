@@ -28,9 +28,12 @@
                     }
                 }
                 else{
-                    echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Credenziali utente errate</div>';
-                    break;
+                    $trovato = false;
                 }
+            }
+            if(!$trovato)
+            {
+                echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Credenziali utente errate</div>';
             }
         }
         ?>

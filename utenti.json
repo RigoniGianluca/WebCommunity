@@ -7,6 +7,16 @@
     {
         "username": "gigiluca",
         "email": "gigiluca@gmail.com",
-        "password": "gigi"
+        "password": "1234"
+    },
+    {
+        "username": "guerra",
+        "email": "guerra@guerra.com",
+        "password": "guerra"
+    },
+    {
+        "username": "pozza",
+        "email": "pozzabello@gmail.com",
+        "password": "pozza"
     }
 ]
