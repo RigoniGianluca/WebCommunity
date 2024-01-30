@@ -4,10 +4,10 @@ namespace CVinile;
 
 class CVinile
 {
-    private $img;
-    private $titolo;
-    private $autore;
-    private $utente;
+    public $img;
+    public $titolo;
+    public $autore;
+    public $utente;
 
 
     public function __construct(string $img, string $titolo, string $autore, string $utente)

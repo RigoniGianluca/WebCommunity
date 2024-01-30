@@ -4,6 +4,12 @@
         <title>REGISTER</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <?php
+        require_once ('DBConn.php');
+        $conn = new DBConn();
+
+
+
+
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -19,8 +25,14 @@
             }
             else if ($password != $cpassword) {
                 echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Le password non coincidono</div>';
-            } else {
-                $utentiRegistrati = json_decode(file_get_contents('utenti.json'), true);
+            }
+            else {
+
+
+
+
+
+                /*$utentiRegistrati = json_decode(file_get_contents('utenti.json'), true);
 
                 if($utentiRegistrati != null){
                     foreach ($utentiRegistrati as $utenteRegistrato) {
@@ -46,7 +58,7 @@
 
                     Header('Location: Login.php');
                     exit();
-                }
+                }*/
             }
         }
         ?>

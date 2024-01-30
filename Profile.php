@@ -45,31 +45,32 @@
             I TUOI VINILI
         </div>
     <?php
+    use CVinile\CVinile;
+    require_once ("CVinile.php");
+
     $vinile = json_decode(file_get_contents('vinili.json'), true);
 
     $vinili = count($vinile);
     for($x=0; $x<$vinili;) {
-        echo '<div class="flex flex-rows mt-5 mb-10">';
+        echo '<div class="flex flex-rows mt-2">';
         for ($i = 0; $i < 4; $i++, $x++) {
-            if($x<$vinili && $vinile[$x]["user"] == $_COOKIE["utente"]) {
+            if($x<$vinili && $vinile[$x]['user'] == $_COOKIE['utente']) {
 
-                $img = $vinile[$x]["img"];
-                $titolo = $vinile[$x]["titolo"];
-                $autore = $vinile[$x]["autore"];
+                $oggVinile = new CVinile($vinile[$x]["img"], $vinile[$x]["titolo"], $vinile[$x]["autore"], $vinile[$x]["user"]);
 
                 echo '<div class="w-1/4 box-border h-auto mr-6 border-4 border-black">
-                                <a href="" class="relative group">
-                                    <img src="' . $img . '" alt="Avatar" class="w-full h-auto transition-opacity duration-500 ease-in-out group-hover:opacity-30">
-                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
-                                        <div class="bg-gray-800/75 text-white text-center p-4 rounded-lg">
-                                            OPEN
+                                    <a href="" class="relative group">
+                                        <img src="' . $oggVinile->img . '" alt="Avatar" class="w-full h-auto transition-opacity duration-500 ease-in-out group-hover:opacity-30">
+                                        <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
+                                            <div class="bg-gray-800/75 text-white text-center p-4 rounded-lg">
+                                                OPEN
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-0.5">
-                                        <div class="text-center font-semibold text-xl">' . $titolo . ' - ' .  $autore . '</div>
-                                    </div>
-                                </a>
-                            </div>';
+                                        <div class="my-0.5">
+                                            <div class="text-center font-semibold text-xl">' . $oggVinile->titolo . ' - ' .  $oggVinile->autore . '</div>
+                                        </div>
+                                    </a>
+                                </div>';
             }
         }
         echo '</div>';

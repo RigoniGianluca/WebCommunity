@@ -4,6 +4,15 @@
     <title>HOME</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <?php
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        }
+
+    ?>
+
+
 </head>
 
 <body>
@@ -43,15 +52,27 @@
     </div>
 </nav>
 
-<div class="mx-48">
-    <div class="mt-5 font-bold text-6xl">
+<div class="mx-48 bg-white">
+    <div class="mx-auto font-bold text-6xl mt-8">
         INSERISCI IL TUO VINILE
     </div>
 
-    <div class="">
+    <div class="max-w-xl py-16">
+        <form action="./CaricaVinile.php" method="POST" enctype="multipart/form-data" class="border-2 rounded border-black">
+            <div class="py-5 mx-5 flex flex-col space-y-4">
+                <label for="titolo" class="text-lg">Titolo</label>
+                <input type="text" id="titolo" name="titolo" class="border border-slate-400 rounded-md px-3 py-2">
 
+                <label for="autore" class="text-lg">Autore</label>
+                <input type="text" id="autore" name="autore" class="border border-slate-400 rounded-md px-3 py-2">
+
+                <label for="image" class="text-lg">Carica immagine</label>
+                <input type="file" id="image" name="image" accept="image/jfif, image/png, image/jpeg" class="border border-slate-400 rounded-md px-3 py-2">
+
+                <button type="submit" class="bg-gray-900 text-white rounde  d-md px-4 py-2 font-semibold text-xl border border-slate-400 rounded-md hover:bg-gray-700/100">Carica il tuo vinile</button>
+            </div>
+        </form>
     </div>
-
 </div>
 
 </body>

@@ -1,42 +1,69 @@
+<?php
+require_once ('DBConn.php');
+$conn = new DBConn();
+
+$conn->conn->query('USE WebCommunity');
+
+
+if(isset($_COOKIE['utente'])){
+    Header('Location: Home.php');
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+$query = $conn->conn->query("SELECT * FROM login WHERE user = '$username' AND password = '$password'");
+// ... = $query->fetch_assoc();     //risultato della query
+if($query->num_rows) {
+    //Accesso consentito
+    if(!isset($_COOKIE['utente'])){
+        $cookie_name = 'utente';
+        $cookie_value = $username;
+        setcookie($cookie_name, $cookie_value, time() + (3600 * 15), "/"); // 86100 = 1 day  3600 = 1 ora
+        Header('Location: Home.php');
+        exit;
+    } else {
+        //Accesso negato
+        echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Credenziali utente errate</div>';
+    }
+
+
+
+    /*$username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $utentiRegistrati = json_decode(file_get_contents('utenti.json'), true);
+
+    foreach($utentiRegistrati as $utenteRegistrato){
+        if($utenteRegistrato['username'] == $username && $utenteRegistrato['password'] == $password){
+            //Accesso consentito
+            if(!isset($_COOKIE['utente'])){
+                $cookie_name = 'utente';
+                $cookie_value = $username;
+                setcookie($cookie_name, $cookie_value, time() + (3600 * 15), "/"); // 86100 = 1 day  3600 = 1 ora
+                Header('Location: Home.php');
+                exit;
+            }
+        }
+        else{
+            $trovato = false;
+        }
+    }
+    if(!$trovato)
+    {
+        echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Credenziali utente errate</div>';
+    }*/
+}
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>LOGIN</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <?php
 
-        if(isset($_COOKIE['utente'])){
-            Header('Location: Home.php');
-            exit;
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-
-            $utentiRegistrati = json_decode(file_get_contents('utenti.json'), true);
-
-            foreach($utentiRegistrati as $utenteRegistrato){
-                if($utenteRegistrato['username'] == $username && $utenteRegistrato['password'] == $password){
-                    //Accesso consentito
-                    if(!isset($_COOKIE['utente'])){
-                        $cookie_name = 'utente';
-                        $cookie_value = $username;
-                        setcookie($cookie_name, $cookie_value, time() + (3600 * 15), "/"); // 86100 = 1 day  3600 = 1 ora
-                        Header('Location: Home.php');
-                        exit;
-                    }
-                }
-                else{
-                    $trovato = false;
-                }
-            }
-            if(!$trovato)
-            {
-                echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Credenziali utente errate</div>';
-            }
-        }
-        ?>
     </head>
     <body>
 
@@ -65,7 +92,10 @@
                             </form>
                         </div>
                     </div>
+                  </div>
                 </div>
+                </div>
+            </div>
             </div>
     </body>
 </html>
