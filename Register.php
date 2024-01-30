@@ -4,21 +4,34 @@
         <title>REGISTER</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <?php
+
         require_once ('DBConn.php');
         $conn = new DBConn();
 
+        $conn->conn->query("CREATE DATABASE IF NOT EXISTS WebCommunity");
+        $conn->conn->query("USE WebCommunity");
 
+        $conn->conn->query( "CREATE TABLE IF NOT EXISTS users (
+                        username VARCHAR(40) NOT NULL,
+                        password VARCHAR(64) NOT NULL,
+                        email VARCHAR(128) NOT NULL,
+                        PRIMARY KEY (username))");
 
 
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            if($_POST['username']==null || $_POST['email']==null || $_POST['password']==null || $_POST['confermaPassword']==null){
+                echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Compila tutti i campi</div>';
+            }
+            else{
 
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password = $_POST['password'];
             $cpassword = $_POST['confermaPassword'];
 
-            $usernameInUso = false;
+
 
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
                 echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Formato email non valida</div>';
@@ -27,9 +40,23 @@
                 echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Le password non coincidono</div>';
             }
             else {
+                $checkQuery = $conn->conn->query("SELECT * FROM users WHERE username = '$username'");
+                $checkQuery2 = $conn->conn->query("SELECT * FROM users WHERE email = '$email'");
+                // ... = $query->fetch_assoc();     //risultato della query
+                if($checkQuery->num_rows>0 || $checkQuery2->num_rows>0) {
+                    echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Nome utente o email già in uso</div>';
+                }
+                else {
+                    $query = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+                    $result = $conn->conn->query($query);
 
-
-
+                    if($result === TRUE){
+                        Header('Location: ./Login.php');
+                        exit;
+                    }
+                    else
+                        echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Registrazione non andata a buon fine</div>';
+                }
 
 
                 /*$utentiRegistrati = json_decode(file_get_contents('utenti.json'), true);
@@ -61,6 +88,7 @@
                 }*/
             }
         }
+            }
         ?>
     </head>
     <body>
