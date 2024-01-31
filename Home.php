@@ -4,7 +4,13 @@
         <title>HOME</title>
         <script src="https://cdn.tailwindcss.com"></script>
 
+        <?php
 
+            session_start();
+
+            if(isset($_))
+
+        ?>
 
     </head>
 
@@ -75,17 +81,21 @@
                     $Vinile = new CVinile($row["immagine"], $row["titolo"], $row["autore"], $row["user"]);
 
                     echo '<div class="w-1/4 px-4 my-4 ">
-                        <a href="" class="relative group block">
+                            <div class="relative group block">
                             <img src="' . $Vinile->img . '" class="w-full max-h-80 object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
                             <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
-                                <div class="bg-gray-800/75 text-white text-center p-4 rounded-lg">
-                                    OPEN
-                                </div>
+                                    <form action="./VinilePreview.php" method="POST">
+                                        <input type="hidden" name="titolo" value="' . $Vinile->titolo . '">
+                                        <input type="hidden" name="autore" value="' . $Vinile->autore . '">
+                                        <input type="hidden" name="immagine" value="' . $Vinile->img . '">
+                                        <input type="hidden" name="utente" value="' . $Vinile->utente . '">
+                                        <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">OPEN</button>
+                                    </form>
                             </div>
                             <div class="">
                                 <div class="border-2 border-gray-800 bg-gray-800 text-center text-white font-semibold text-xl">' . $Vinile->titolo . ' - ' . $Vinile->autore . '</div>
                             </div>
-                        </a>
+                        </div>
                     </div>';
 
                     $x++;
