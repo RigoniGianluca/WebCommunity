@@ -51,11 +51,47 @@
         </div>
 
             <?php
-
+            require_once("DBConn.php");
             use CVinile\CVinile;
-            require_once ("CVinile.php");
+            require_once("CVinile.php");
 
-                $vinile = json_decode(file_get_contents('vinili.json'), true);
+            $conn = new DBConn();
+            $conn->conn->query("USE WebCommunity");
+
+            $result = $conn->conn->query("SELECT * FROM vinili");
+            if ($result->num_rows > 0) {
+                $x = 0;
+                echo '<div class="flex flex-wrap -mx-4">';
+                while ($row = $result->fetch_assoc()) {
+                    $oggVinile = new CVinile($row["immagine"], $row["titolo"], $row["autore"], $row["user"]);
+
+                    echo '<div class="w-1/4 px-4 my-4">
+                <a href="" class="relative group block">
+                    <img src="' . $oggVinile->img . '" class="w-full h-auto transition-opacity duration-500 ease-in-out group-hover:opacity-30">
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
+                        <div class="bg-gray-800/75 text-white text-center p-4 rounded-lg">
+                            OPEN
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="text-center font-semibold text-xl">' . $oggVinile->titolo . ' - ' . $oggVinile->autore . '</div>
+                    </div>
+                </a>
+            </div>';
+
+                    $x++;
+                    if ($x % 4 == 0) {
+                        echo '</div><div class="flex flex-wrap -mx-4">';
+                    }
+                }
+                echo '</div>';
+            } else {
+                echo "0 risultati";
+            }
+
+
+
+            /*$vinile = json_decode(file_get_contents('vinili.json'), true);
 
                 $vinili = count($vinile);
                 for($x=0; $x<$vinili;) {
@@ -81,7 +117,7 @@
                         }
                     }
                     echo '</div>';
-                }
+                }*/
             ?>
         </div>
 

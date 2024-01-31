@@ -1,18 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HOME</title>
+    <title>UPLOAD VINILE</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <?php
+        Require_once ('DBConn.php');
+        $conn = new DBConn();
+        $conn->conn->query("USE WebCommunity");
+
+        $conn->conn->query("CREATE TABLE IF NOT EXISTS vinili (
+                                id INT (5) NOT NULL AUTO_INCREMENT,
+                                titolo VARCHAR(100) NOT NULL,
+                                autore VARCHAR(64) NOT NULL,
+                                immagine VARCHAR(225) NOT NULL,
+                                user VARCHAR(40) NOT NULL,
+                                PRIMARY KEY (id))");
+
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if($_POST['titolo']==null || $_POST['autore']==null){
+                echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Compila tutti i campi</div>';
+            }
+            else if($_FILES['image']['error'] === UPLOAD_ERR_OK){
+                $titolo = $_POST['titolo'];
+                $autore = $_POST['autore'];
+                $user = $_COOKIE['utente'];
 
+                $uploadDir = 'images';
+                $uploadPath = $uploadDir . '/' . basename($_FILES['image']['name']);
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath);
+
+                $query = "INSERT INTO vinili (titolo, autore, immagine, user) VALUES ('$titolo', '$autore', '$uploadPath', '$user')";
+                $result = $conn->conn->query($query);
+                if($result === TRUE){
+                    Header('Location: ./Home.php');
+                    exit;
+                }
+            }
+            else{
+                echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">errore nel upload dell\'immagine</div>';
+            }
         }
 
     ?>
-
-
 </head>
 
 <body>
