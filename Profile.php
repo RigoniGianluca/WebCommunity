@@ -18,8 +18,8 @@
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="Home.php" id="home" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
-                            <a href="CaricaVinile.php" id="Iseriscivinile" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Carica vinile</a>
+                            <a href="Home.php" id="home" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
+                            <a href="CaricaVinile.php" id="Iseriscivinile" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Carica vinile</a>
                         </div>
                     </div>
                 </div>
@@ -44,37 +44,46 @@
         <div class="mt-5 font-bold text-6xl">
             I TUOI VINILI
         </div>
-    <?php
-    use CVinile\CVinile;
-    require_once ("CVinile.php");
+        <?php
+        require_once("DBConn.php");
+        use CVinile\CVinile;
+        require_once("CVinile.php");
 
-    $vinile = json_decode(file_get_contents('vinili.json'), true);
 
-    $vinili = count($vinile);
-    for($x=0; $x<$vinili;) {
-        echo '<div class="flex flex-rows mt-2">';
-        for ($i = 0; $i < 4; $i++, $x++) {
-            if($x<$vinili && $vinile[$x]['user'] == $_COOKIE['utente']) {
+        $conn = new DBConn();
+        $conn->conn->query("USE WebCommunity");
 
-                $oggVinile = new CVinile($vinile[$x]["img"], $vinile[$x]["titolo"], $vinile[$x]["autore"], $vinile[$x]["user"]);
+        $result = $conn->conn->query("SELECT * FROM vinili");
+        if ($result->num_rows > 0) {
+            $x = 0;
+            echo '<div class="flex flex-wrap -mx-4">';
+            while ($row = $result->fetch_assoc()) {
+                $Vinile = new CVinile($row["immagine"], $row["titolo"], $row["autore"], $row["user"]);
+                if($Vinile->utente == $_COOKIE['utente']){
+                    echo '<div class="w-1/4 px-4 my-4 ">
+                        <div class="relative group block">
+                            <img src="' . $Vinile->img . '" class="w-full max-h-80 object-center object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
+                                    <a href="" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">OPEN</a>
+                                    <a href="" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MODIFICA</a>
+                            </div>
+                            <div class="">
+                                <div class="border-2 border-gray-800 bg-gray-800 text-center text-white font-semibold text-xl">' . $Vinile->titolo . ' - ' . $Vinile->autore . '</div>
+                            </div>
+                        </div>
+                    </div>';
 
-                echo '<div class="w-1/4 box-border h-auto mr-6 border-4 border-black">
-                                    <a href="" class="relative group">
-                                        <img src="' . $oggVinile->img . '" alt="Avatar" class="w-full h-auto transition-opacity duration-500 ease-in-out group-hover:opacity-30">
-                                        <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
-                                            <div class="bg-gray-800/75 text-white text-center p-4 rounded-lg">
-                                                OPEN
-                                            </div>
-                                        </div>
-                                        <div class="my-0.5">
-                                            <div class="text-center font-semibold text-xl">' . $oggVinile->titolo . ' - ' .  $oggVinile->autore . '</div>
-                                        </div>
-                                    </a>
-                                </div>';
+                    $x++;
+                    if ($x % 4 == 0) {
+                        echo '</div><div class="flex flex-wrap -mx-4">';
+                    }
+                }
             }
+            echo '</div>';
+        } else {
+            echo '<div class="pt-5 pb-2 font-bold text-3xl">Non ci sono ancora vinili caricati</div>
+                        <div class="bg-teal-700 text-white border-2 rounded-lg border-gray-800 text-2xl font-semibold text-center w-48 h-10 hover:font-bold hover:bg-teal-700/75"><a href="./CaricaVinile.php">Carica un vinile</a></div>';
         }
-        echo '</div>';
-    }
     ?>
     </div>
     </body>

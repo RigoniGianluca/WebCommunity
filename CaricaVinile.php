@@ -20,7 +20,7 @@
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($_POST['titolo']==null || $_POST['autore']==null){
-                echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Compila tutti i campi</div>';
+                echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">Compila tutti i campi</div>';
             }
             else if($_FILES['image']['error'] === UPLOAD_ERR_OK){
                 $titolo = $_POST['titolo'];
@@ -39,7 +39,7 @@
                 }
             }
             else{
-                echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">errore nel upload dell\'immagine</div>';
+                echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">errore nel upload dell\'immagine</div>';
             }
         }
 
@@ -60,8 +60,8 @@
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="Home.php" id="home" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
-                        <a href="CaricaVinile.php" id="Iseriscivinile" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Carica vinile</a>
+                        <a href="Home.php" id="home" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
+                        <a href="CaricaVinile.php" id="Iseriscivinile" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Carica vinile</a>
                     </div>
                 </div>
             </div>
