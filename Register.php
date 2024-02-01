@@ -33,62 +33,38 @@
 
 
 
-            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Formato email non valida</div>';
-            }
-            else if ($password != $cpassword) {
-                echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Le password non coincidono</div>';
-            }
-            else {
-                $checkQuery = $conn->conn->query("SELECT * FROM users WHERE username = '$username'");
-                $checkQuery2 = $conn->conn->query("SELECT * FROM users WHERE email = '$email'");
-                // ... = $query->fetch_assoc();     //risultato della query
-                if($checkQuery->num_rows>0 || $checkQuery2->num_rows>0) {
-                    echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Nome utente o email già in uso</div>';
+                if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                    echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Formato email non valida</div>';
+                }
+                else if ($password != $cpassword) {
+                    echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Le password non coincidono</div>';
                 }
                 else {
-                    $query = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
-                    $result = $conn->conn->query($query);
-
-                    if($result === TRUE){
-                        Header('Location: ./Login.php');
-                        exit;
+                    $checkQuery = $conn->conn->query("SELECT * FROM users WHERE username = '$username'");
+                    $checkQuery2 = $conn->conn->query("SELECT * FROM users WHERE email = '$email'");
+                    // ... = $query->fetch_assoc();     //risultato della query
+                    if($checkQuery->num_rows>0 || $checkQuery2->num_rows>0) {
+                        echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Nome utente o email già in uso</div>';
                     }
-                    else
-                        echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Registrazione non andata a buon fine</div>';
-                }
+                    else {
+                        $query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+                        $stmt = $conn->conn->prepare($query);
+                        $stmt->bind_param('sss', $username, $password, $email);
 
+                        $result = $stmt->execute();
 
-                /*$utentiRegistrati = json_decode(file_get_contents('utenti.json'), true);
-
-                if($utentiRegistrati != null){
-                    foreach ($utentiRegistrati as $utenteRegistrato) {
-                        if ($utenteRegistrato['username'] == $username || $utenteRegistrato['email'] == $email) {
-                            echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Nome utente o email già in uso</div>';
-                            $usernameInUso = true;
-                            break;
+                        if($result === TRUE){
+                            Header('Location: ./Login.php');
+                            exit;
                         }
+                        else
+                            echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Registrazione non andata a buon fine</div>';
+
+                        $stmt->close();
                     }
                 }
-
-                if (!$usernameInUso) {
-                    $newUtente = [
-                        'username' => $username,
-                        'email' => $email,
-                        'password' => $password
-                    ];
-
-                    $utentiRegistrati[] = $newUtente;
-
-                    $fileJSON = json_encode($utentiRegistrati, JSON_PRETTY_PRINT);
-                    file_put_contents('utenti.json', $fileJSON);
-
-                    Header('Location: Login.php');
-                    exit();
-                }*/
             }
         }
-            }
         ?>
     </head>
     <body>

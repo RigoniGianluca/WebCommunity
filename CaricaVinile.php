@@ -28,17 +28,27 @@
                 $autore = $_POST['autore'];
                 $user = $_COOKIE['utente'];
                 $descrizione = $_POST['descrizione'];
+                echo "parametri presi" . $titolo . ' ' . $autore . ' ' . $descrizione . ' ' . $user;
 
                 $uploadDir = 'images';
                 $uploadPath = $uploadDir . '/' . basename($_FILES['image']['name']);
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath);
 
-                $query = "INSERT INTO vinili(titolo, autore, immagine, descrizione, user) VALUES ('$titolo', '$autore', '$uploadPath', '$descrizione', '$user')";
-                $result = $conn->conn->query($query);
+                echo 'immagine presa ' . $uploadPath;
+
+                $query = "INSERT INTO vinili(titolo, autore, immagine, descrizione, user) VALUES (?, ?, ?, ?, ?)";
+                $stmt = $conn->conn->prepare($query);
+                $stmt->bind_param('sssss', $titolo, $autore, $uploadPath, $descrizione, $user);
+                $result = $stmt->execute();
+
                 if($result === TRUE){
                     Header('Location: ./Home.php');
                     exit;
                 }
+                else
+                    echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">errore nel upload dell\'immagine</div>';
+                
+                $stmt->close();
             }
             else{
                 echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">errore nel upload dell\'immagine</div>';

@@ -67,14 +67,28 @@
             $x = 0;
             echo '<div class="flex flex-wrap -mx-4">';
             while ($row = $result->fetch_assoc()) {
-                $Vinile = new CVinile($row["immagine"], $row["titolo"], $row["autore"], $row["user"]);
+                $Vinile = new CVinile($row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row['descrizione']);
                 if($Vinile->utente == $_COOKIE['utente']){
                     echo '<div class="w-1/4 px-4 my-4 ">
                         <div class="relative group block">
                             <img src="' . $Vinile->img . '" class="w-full max-h-80 object-center object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
                             <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
-                                    <a href="" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">OPEN</a>
-                                    <a href="" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MODIFICA</a>
+                                    <form action="./VinilePreview.php" method="POST">
+                                        <input type="hidden" name="titolo" value="' . $Vinile->titolo . '">
+                                        <input type="hidden" name="autore" value="' . $Vinile->autore . '">
+                                        <input type="hidden" name="immagine" value="' . $Vinile->img . '">
+                                        <input type="hidden" name="utente" value="' . $Vinile->utente . '">
+                                        <input type="hidden" name="descrizione" value="' . $Vinile->descrizione . '">
+                                        <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MOSTRA</button>
+                                    </form>
+                                    <form action="" method="POST">
+                                        <input type="hidden" name="titolo" value="' . $Vinile->titolo . '">
+                                        <input type="hidden" name="autore" value="' . $Vinile->autore . '">
+                                        <input type="hidden" name="immagine" value="' . $Vinile->img . '">
+                                        <input type="hidden" name="utente" value="' . $Vinile->utente . '">
+                                        <input type="hidden" name="descrizione" value="' . $Vinile->descrizione . '">
+                                        <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MODIFICA</button>
+                                    </form>
                             </div>
                             <div class="">
                                 <div class="border-2 border-gray-800 bg-gray-800 text-center text-white font-semibold text-xl">' . $Vinile->titolo . ' - ' . $Vinile->autore . '</div>
