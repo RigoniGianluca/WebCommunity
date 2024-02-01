@@ -53,6 +53,15 @@
         $conn = new DBConn();
         $conn->conn->query("USE WebCommunity");
 
+        $conn->conn->query("CREATE TABLE IF NOT EXISTS vinili (
+                                    id INT (5) NOT NULL AUTO_INCREMENT,
+                                    titolo VARCHAR(100) NOT NULL,
+                                    autore VARCHAR(64) NOT NULL,
+                                    immagine VARCHAR(225) NOT NULL,
+                                    descrizione VARCHAR(999) NOT NULL,
+                                    user VARCHAR(40) NOT NULL,
+                                    PRIMARY KEY (id))");
+
         $result = $conn->conn->query("SELECT * FROM vinili");
         if ($result->num_rows > 0) {
             $x = 0;

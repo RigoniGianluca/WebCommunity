@@ -10,12 +10,13 @@
         $conn->conn->query("USE WebCommunity");
 
         $conn->conn->query("CREATE TABLE IF NOT EXISTS vinili (
-                                id INT (5) NOT NULL AUTO_INCREMENT,
-                                titolo VARCHAR(100) NOT NULL,
-                                autore VARCHAR(64) NOT NULL,
-                                immagine VARCHAR(225) NOT NULL,
-                                user VARCHAR(40) NOT NULL,
-                                PRIMARY KEY (id))");
+                                    id INT (5) NOT NULL AUTO_INCREMENT,
+                                    titolo VARCHAR(100) NOT NULL,
+                                    autore VARCHAR(64) NOT NULL,
+                                    immagine VARCHAR(225) NOT NULL,
+                                    descrizione VARCHAR(999) NOT NULL,
+                                    user VARCHAR(40) NOT NULL,
+                                    PRIMARY KEY (id))");
 
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -26,12 +27,13 @@
                 $titolo = $_POST['titolo'];
                 $autore = $_POST['autore'];
                 $user = $_COOKIE['utente'];
+                $descrizione = $_POST['descrizione'];
 
                 $uploadDir = 'images';
                 $uploadPath = $uploadDir . '/' . basename($_FILES['image']['name']);
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath);
 
-                $query = "INSERT INTO vinili (titolo, autore, immagine, user) VALUES ('$titolo', '$autore', '$uploadPath', '$user')";
+                $query = "INSERT INTO vinili(titolo, autore, immagine, descrizione, user) VALUES ('$titolo', '$autore', '$uploadPath', '$descrizione', '$user')";
                 $result = $conn->conn->query($query);
                 if($result === TRUE){
                     Header('Location: ./Home.php');
@@ -96,6 +98,9 @@
 
                 <label for="autore" class="text-lg">Autore</label>
                 <input type="text" id="autore" name="autore" class="border border-slate-400 rounded-md px-3 py-2">
+
+                <label for="autore" class="text-lg">Descrizione</label>
+                <input type="text" id="descrizione" name="descrizione" class="border border-slate-400 rounded-md px-3 py-2 h-32">
 
                 <label for="image" class="text-lg">Carica immagine</label>
                 <input type="file" id="image" name="image" accept="image/jfif, image/png, image/jpeg" class="border border-slate-400 rounded-md px-3 py-2">

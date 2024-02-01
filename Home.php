@@ -70,6 +70,7 @@
                                 titolo VARCHAR(100) NOT NULL,
                                 autore VARCHAR(64) NOT NULL,
                                 immagine VARCHAR(225) NOT NULL,
+                                descrizione VARCHAR(999) NOT NULL,
                                 user VARCHAR(40) NOT NULL,
                                 PRIMARY KEY (id))");
 
@@ -78,7 +79,7 @@
                 $x = 0;
                 echo '<div class="flex flex-wrap mx-4 ">';
                 while ($row = $result->fetch_assoc()) {
-                    $Vinile = new CVinile($row["immagine"], $row["titolo"], $row["autore"], $row["user"]);
+                    $Vinile = new CVinile($row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row["descrizione"]);
 
                     echo '<div class="w-1/4 px-4 my-4 ">
                             <div class="relative group block">
@@ -89,6 +90,7 @@
                                         <input type="hidden" name="autore" value="' . $Vinile->autore . '">
                                         <input type="hidden" name="immagine" value="' . $Vinile->img . '">
                                         <input type="hidden" name="utente" value="' . $Vinile->utente . '">
+                                        <input type="hidden" name="descrizione" value="' . $Vinile->descrizione . '">
                                         <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">OPEN</button>
                                     </form>
                             </div>
