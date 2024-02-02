@@ -54,19 +54,14 @@
 
     <div>
         <?php
-
-            require_once("DBConn.php");
-            use CVinile\CVinile;
-            require_once ("CVinile.php");
-
-            $conn = new DBConn();
-            $conn->conn->query("USE WebCommunity");
+                use CVinile\CVinile;
+                require_once ("CVinile.php");
 
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $titolo = $_POST["titolo"];
                 $autore = $_POST['autore'];
                 $immagine = $_POST['immagine'];
-                $user = $_POST['utente'];
+                $user = $_COOKIE['utente'];
                 $descrizione = $_POST['descrizione'];
 
                 $Vinile = new CVinile($immagine, $titolo, $autore, $user, $descrizione);

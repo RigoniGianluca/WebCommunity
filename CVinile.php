@@ -19,5 +19,21 @@ class CVinile
         $this->utente = $utente;
         $this->descrizione = $descrizione;
     }
+
+    public function ChangeTitolo(string $titolo){
+        $this->titolo = $titolo;
+    }
+
+    public function ChangeAutore(string $autore){
+        $this->autore = $autore;
+    }
+
+    public function ChangeImg(string $immagine){
+        $this->img = $immagine;
+    }
+
+    public function ChangeDescrizione(string $descrizione){
+        $this->descrizione = $descrizione;
+    }
 }
 

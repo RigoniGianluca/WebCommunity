@@ -65,7 +65,7 @@
         $result = $conn->conn->query("SELECT * FROM vinili");
         if ($result->num_rows > 0) {
             $x = 0;
-            echo '<div class="flex flex-wrap -mx-4">';
+            echo '<div class="flex flex-wrap mx-4">';
             while ($row = $result->fetch_assoc()) {
                 $Vinile = new CVinile($row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row['descrizione']);
                 if($Vinile->utente == $_COOKIE['utente']){
@@ -81,13 +81,13 @@
                                         <input type="hidden" name="descrizione" value="' . $Vinile->descrizione . '">
                                         <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MOSTRA</button>
                                     </form>
-                                    <form action="" method="POST">
+                                    <form action="EditVinile.php" method="POST">
                                         <input type="hidden" name="titolo" value="' . $Vinile->titolo . '">
                                         <input type="hidden" name="autore" value="' . $Vinile->autore . '">
                                         <input type="hidden" name="immagine" value="' . $Vinile->img . '">
                                         <input type="hidden" name="utente" value="' . $Vinile->utente . '">
                                         <input type="hidden" name="descrizione" value="' . $Vinile->descrizione . '">
-                                        <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MODIFICA</button>
+                                        <button name="modifica" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MODIFICA</button>
                                     </form>
                             </div>
                             <div class="">

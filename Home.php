@@ -4,13 +4,6 @@
         <title>HOME</title>
         <script src="https://cdn.tailwindcss.com"></script>
 
-        <?php
-
-            session_start();
-
-            if(isset($_))
-
-        ?>
 
     </head>
 
