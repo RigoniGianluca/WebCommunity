@@ -58,6 +58,7 @@
                     $user = $_COOKIE['utente'];
                     $descrizione = "";
                     $Vinile = new CVinile($immagine, $titolo, $autore, $user, $descrizione);
+                    echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">' . $Vinile->titolo . $Vinile->autore . $Vinile->img . $Vinile->utente . $Vinile->descrizione .  '</div>';
 
                     if(isset($_POST['modifica'])){
                         $titolo = $_POST["titolo"];
@@ -65,7 +66,13 @@
                         $immagine = $_POST['immagine'];
                         $descrizione = $_POST['descrizione'];
 
-                        $Vinile = new CVinile($immagine, $titolo, $autore, $user, $descrizione);
+                        $Vinile->ChangeTitolo($titolo);
+                        $Vinile->ChangeAutore($autore);
+                        $Vinile->ChangeImg($immagine);
+                        $Vinile->ChangeDescrizione($descrizione);
+
+                        echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">' . $Vinile->titolo . $Vinile->autore . $Vinile->img . $Vinile->utente . $Vinile->descrizione .  '</div>';
+
 
                         echo '<div class="mx-48 bg-white">
                                 <div class="mx-auto font-bold text-6xl mt-8">
@@ -77,10 +84,10 @@
                                         <label for="titolo" class="text-lg">Titolo</label>
                                         <input type="text" id="titolo2" name="titolo2" class="border border-slate-400 rounded-md px-3 py-2">
                         
-                                        <label for="autore" class="text-lg">Autore</label>
+                                        <label class="text-lg">Autore</label>
                                         <input type="text" id="autore2" name="autore2" class="border border-slate-400 rounded-md px-3 py-2">
                         
-                                        <label for="autore" class="text-lg">Descrizione</label>
+                                        <label class="text-lg">Descrizione</label>
                                         <input type="text" id="descrizione2" name="descrizione2" class="border border-slate-400 rounded-md px-3 py-2 h-32">
                         
                                         <label for="image" class="text-lg">Carica immagine</label>
@@ -92,19 +99,17 @@
                             </div>';
                     }
                     else if(isset($_POST['modifica2'])){
-                        echo '<pre>';
-                        print_r($_FILES);
-                        echo '</pre>';
-                        if($_POST['titolo2']!==""){
+                        echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">' . $Vinile->titolo . $Vinile->autore . $Vinile->img . $Vinile->utente . $Vinile->descrizione .  '</div>';
+                        echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">' . $_POST['titolo2'] . $_POST['autore2'] . $_POST['immagine2'] . $_POST['descrizione2'] . $Vinile->utente .  '</div>';
+                        if(isset($_POST['titolo2'])){
                             $Vinile->ChangeTitolo($_POST["titolo2"]);
                         }
 
-                        if($_POST['autore2']!=="") {
+                        if(isset($_POST['autore2'])) {
                             $Vinile->ChangeAutore($_POST['autore2']);
                         }
 
-                        if($_POST['immagine2']!==""){
-                            echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">' . $_POST['immagine2'] . '</div>';
+                        if(isset($_POST['immagine2'])){
                             if (isset($_FILES['immagine2']) && $_FILES['immagine2']['error'] === UPLOAD_ERR_OK) {
                                 $uploadDir = 'images';
                                 $uploadPath = $uploadDir . '/' . basename($_FILES['immagine2']['name']);
@@ -116,15 +121,21 @@
                             }
                         }
 
-                        if($_POST['descrizione2']!=="") {
+                        if(isset($_POST['descrizione2'])) {
                             $Vinile->ChangeDescrizione($_POST['descrizione2']);
                         }
+                        $newTitolo = $Vinile->titolo;
+                        $newAutore = $Vinile->autore;
+                        $newImg = $Vinile->img;
+                        $newDescrizione = $Vinile->descrizione;
 
-                        $query = 'UPDATE vinili SET titolo=?, autore=?, immagine=?, username=?, descrizione=? WHERE titolo=? AND autore=? AND immagine=? AND username=? AND descrizione=?';
+                        $query = 'UPDATE vinili 
+                                    SET titolo = ' . $newTitolo . ', autore = ' . $newAutore . ', immagine = ' . $newImg . ', username = ' . $user . ', descrizione = ' . $newDescrizione . '
+                        WHERE titolo = ' . $titolo . ' AND autore = ' . $autore .' AND immagine = ' . $immagine . ' AND username = '$user' AND   descrizione = '$descrizione;
 
-                        $stmt = $conn->conn->prepare($query);
-                        $stmt->bind_param('ssssssssss', $Vinile->titolo, $Vinile->autore, $uploadPath, $Vinile->utente, $Vinile->descrizione, $titolo, $autore, $immagine, $user, $descrizione);
-                        $result = $stmt->execute();
+                        /*$stmt = $conn->conn->prepare($query);
+                        $stmt->bind_param('sssss', $Vinile->titolo, $Vinile->autore, $uploadPath, $Vinile->utente, $Vinile->descrizione);*/
+                        $result = $conn->conn->query($query);
 
                         if($result === TRUE){
                             echo '<div class="mx-48 bg-white">
