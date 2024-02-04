@@ -58,7 +58,6 @@
                     $user = $_COOKIE['utente'];
                     $descrizione = "";
                     $Vinile = new CVinile($immagine, $titolo, $autore, $user, $descrizione);
-                    echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">' . $Vinile->titolo . $Vinile->autore . $Vinile->img . $Vinile->utente . $Vinile->descrizione .  '</div>';
 
                     if(isset($_POST['modifica'])){
                         $titolo = $_POST["titolo"];
@@ -70,9 +69,6 @@
                         $Vinile->ChangeAutore($autore);
                         $Vinile->ChangeImg($immagine);
                         $Vinile->ChangeDescrizione($descrizione);
-
-                        echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">' . $Vinile->titolo . $Vinile->autore . $Vinile->img . $Vinile->utente . $Vinile->descrizione .  '</div>';
-
 
                         echo '<div class="mx-48 bg-white">
                                 <div class="mx-auto font-bold text-6xl mt-8">
@@ -99,8 +95,6 @@
                             </div>';
                     }
                     else if(isset($_POST['modifica2'])){
-                        echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">' . $Vinile->titolo . $Vinile->autore . $Vinile->img . $Vinile->utente . $Vinile->descrizione .  '</div>';
-                        echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">' . $_POST['titolo2'] . $_POST['autore2'] . $_POST['immagine2'] . $_POST['descrizione2'] . $Vinile->utente .  '</div>';
                         if(isset($_POST['titolo2'])){
                             $Vinile->ChangeTitolo($_POST["titolo2"]);
                         }
@@ -130,12 +124,16 @@
                         $newDescrizione = $Vinile->descrizione;
 
                         $query = 'UPDATE vinili 
-                                    SET titolo = ' . $newTitolo . ', autore = ' . $newAutore . ', immagine = ' . $newImg . ', username = ' . $user . ', descrizione = ' . $newDescrizione . '
-                        WHERE titolo = ' . $titolo . ' AND autore = ' . $autore .' AND immagine = ' . $immagine . ' AND username = '$user' AND   descrizione = '$descrizione;
+                                SET titolo=' . $newTitolo . ', autore=' . $newTitolo . ', immagine=' . $newTitolo . ', user=' . $_COOKIE['utente'] . ', descrizione=' . $newTitolo . ' 
+                                WHERE titolo=? AND autore=? AND immagine=? AND user=? AND descrizione=?';
 
-                        /*$stmt = $conn->conn->prepare($query);
-                        $stmt->bind_param('sssss', $Vinile->titolo, $Vinile->autore, $uploadPath, $Vinile->utente, $Vinile->descrizione);*/
-                        $result = $conn->conn->query($query);
+                        $stmt = $conn->conn->prepare($query);
+
+                        if(!$stmt) {
+                            die("Errore nella preparazione della query: " . $conn->conn->error);
+                        }
+                        $stmt->bind_param('sssss',  $titolo, $autore, $immagine, $user, $descrizione);
+                        $result = $stmt->execute();
 
                         if($result === TRUE){
                             echo '<div class="mx-48 bg-white">
