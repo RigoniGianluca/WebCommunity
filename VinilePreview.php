@@ -58,13 +58,14 @@
                 require_once ("CVinile.php");
 
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $id = $_POST['id'];
                 $titolo = $_POST["titolo"];
                 $autore = $_POST['autore'];
                 $immagine = $_POST['immagine'];
                 $user = $_COOKIE['utente'];
                 $descrizione = $_POST['descrizione'];
 
-                $Vinile = new CVinile($immagine, $titolo, $autore, $user, $descrizione);
+                $Vinile = new CVinile($id, $immagine, $titolo, $autore, $user, $descrizione);
 
                 echo '<div class="mx-96 my-5 w-3/4 flex flex rows">
                         <div class="w-80 max-h-80"> 

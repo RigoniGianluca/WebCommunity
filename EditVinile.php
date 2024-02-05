@@ -52,14 +52,16 @@
                     use CVinile\CVinile;
                     require_once ("CVinile.php");
 
+                    $id = "";
                     $titolo = "";
                     $autore = "";
                     $immagine = "";
                     $user = $_COOKIE['utente'];
                     $descrizione = "";
-                    $Vinile = new CVinile($immagine, $titolo, $autore, $user, $descrizione);
+                    $Vinile = new CVinile($id, $immagine, $titolo, $autore, $user, $descrizione);
 
                     if(isset($_POST['modifica'])){
+                        $id = $_POST['id'];
                         $titolo = $_POST["titolo"];
                         $autore = $_POST['autore'];
                         $immagine = $_POST['immagine'];
@@ -72,7 +74,7 @@
 
                         echo '<div class="mx-48 bg-white">
                                 <div class="mx-auto font-bold text-6xl mt-8">
-                                    MODIFICA IL TUO VINILE
+                                    STAI MODIFICANDO ' . strtoupper($Vinile->titolo) . '
                                 </div>
                                 <div class="max-w-xl py-16">
                                 <form action="./EditVinile.php" method="POST" enctype="multipart/form-data" class="border-2 rounded border-black">
@@ -94,7 +96,8 @@
                                 </form>
                             </div>';
                     }
-                    else if(isset($_POST['modifica2'])){
+
+                    if(isset($_POST['modifica2'])){
                         if(isset($_POST['titolo2'])){
                             $Vinile->ChangeTitolo($_POST["titolo2"]);
                         }
@@ -109,7 +112,8 @@
                                 $uploadPath = $uploadDir . '/' . basename($_FILES['immagine2']['name']);
                                 move_uploaded_file($_FILES['immagine2']['tmp_name'], $uploadPath);
                                 $Vinile->ChangeImg($uploadPath);
-                            } else {
+                            }
+                            else {
                                 echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">Errore nel caricamento dell\'immagine</div>';
                                 // Puoi anche visualizzare ulteriori informazioni sull'errore con $_FILES['immagine2']['error']
                             }
@@ -118,24 +122,19 @@
                         if(isset($_POST['descrizione2'])) {
                             $Vinile->ChangeDescrizione($_POST['descrizione2']);
                         }
-                        $newTitolo = $Vinile->titolo;
-                        $newAutore = $Vinile->autore;
-                        $newImg = $Vinile->img;
-                        $newDescrizione = $Vinile->descrizione;
 
-                        $query = 'UPDATE vinili 
-                                SET titolo=' . $newTitolo . ', autore=' . $newTitolo . ', immagine=' . $newTitolo . ', user=' . $_COOKIE['utente'] . ', descrizione=' . $newTitolo . ' 
-                                WHERE titolo=? AND autore=? AND immagine=? AND user=? AND descrizione=?';
+                        echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">'.$Vinile->id .$Vinile->titolo. $Vinile->autore. $Vinile->img. $Vinile->descrizione. $Vinile->utente. $Vinile->id.'</div>';
+
+                        $query = 'UPDATE vinili SET titolo=?, autore=?, immagine=?, descrizione=?, user=? WHERE id=?';
 
                         $stmt = $conn->conn->prepare($query);
-
                         if(!$stmt) {
                             die("Errore nella preparazione della query: " . $conn->conn->error);
                         }
-                        $stmt->bind_param('sssss',  $titolo, $autore, $immagine, $user, $descrizione);
-                        $result = $stmt->execute();
+                        $stmt->bind_param('sssssi',  $Vinile->titolo, $Vinile->autore, $Vinile->img, $Vinile->descrizione, $Vinile->utente, $Vinile->id);
+                        $stmt->execute();
 
-                        if($result === TRUE){
+                        if($stmt){
                             echo '<div class="mx-48 bg-white">
                                 <div class="mx-auto font-bold text-6xl mt-8">
                                     IL TUO VINILE MODIFICATO
@@ -157,6 +156,25 @@
                         else
                             echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">errore nell\' edit dell\'immagine</div>';
                     }
+                    $ID=$Vinile->id;
+                    $Query = "SELECT * FROM vinili WHERE id='$ID';";
+
+                    $result = $conn->conn->query($Query);
+
+                    $prova = new CVinile( $id = "",
+                                            $img = "",
+                                            $titolo = "",
+                                            $autore = "",
+                                            $utente = "",
+                                            $descrizione = "");
+                    if($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc())
+                            $prova = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row['descrizione']);
+                        }
+                            echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">'.$prova->id .$prova->titolo. $prova->autore. $prova->img. $prova->descrizione. $prova->utente. $prova->id.'</div>';
+
+
+
 
                 ?>
 </body>

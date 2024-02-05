@@ -4,15 +4,16 @@ namespace CVinile;
 
 class CVinile
 {
+    public $id;
     public $img;
     public $titolo;
     public $autore;
     public $descrizione;
     public $utente;
 
-
-    public function __construct(string $img, string $titolo, string $autore, string $utente, string $descrizione)
+    public function __construct(string $id, string $img, string $titolo, string $autore, string $utente, string $descrizione)
     {
+        $this->id = $id;
         $this->img = $img;
         $this->titolo = $titolo;
         $this->autore = $autore;
