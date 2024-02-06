@@ -2,6 +2,8 @@
 
 namespace CVinile;
 
+use MongoDB\BSON\Int64;
+
 class CVinile
 {
     public $id;
@@ -36,5 +38,16 @@ class CVinile
     public function ChangeDescrizione(string $descrizione){
         $this->descrizione = $descrizione;
     }
+
+    public function ChangeId(int $id)
+    {
+        $this->id = $id;
+    }
+
+    public function toString()
+    {
+        return $this->id . ' ' . $this->titolo . ' ' . $this->autore . ' ' . $this->img . ' ' . $this->descrizione . ' ' . $this->utente;
+    }
+
 }
 

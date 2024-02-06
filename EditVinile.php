@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HOME</title>
+    <title>Modifica Vinile</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
 
@@ -71,6 +71,7 @@
                         $Vinile->ChangeAutore($autore);
                         $Vinile->ChangeImg($immagine);
                         $Vinile->ChangeDescrizione($descrizione);
+                        $Vinile->ChangeId($id);
 
                         echo '<div class="mx-48 bg-white">
                                 <div class="mx-auto font-bold text-6xl mt-8">
@@ -97,85 +98,67 @@
                             </div>';
                     }
 
-                    if(isset($_POST['modifica2'])){
-                        if(isset($_POST['titolo2'])){
+                    if(isset($_POST['modifica2'])) {
+
+
+                        if (isset($_POST['titolo2'])) {
                             $Vinile->ChangeTitolo($_POST["titolo2"]);
                         }
 
-                        if(isset($_POST['autore2'])) {
+                        if (isset($_POST['autore2'])) {
                             $Vinile->ChangeAutore($_POST['autore2']);
                         }
 
-                        if(isset($_POST['immagine2'])){
-                            if (isset($_FILES['immagine2']) && $_FILES['immagine2']['error'] === UPLOAD_ERR_OK) {
+                        if (isset($_FILES['immagine2'])) {
+                            if ($_FILES['immagine2']['error'] === UPLOAD_ERR_OK) {
                                 $uploadDir = 'images';
                                 $uploadPath = $uploadDir . '/' . basename($_FILES['immagine2']['name']);
                                 move_uploaded_file($_FILES['immagine2']['tmp_name'], $uploadPath);
                                 $Vinile->ChangeImg($uploadPath);
-                            }
-                            else {
+                            } else {
                                 echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">Errore nel caricamento dell\'immagine</div>';
-                                // Puoi anche visualizzare ulteriori informazioni sull'errore con $_FILES['immagine2']['error']
                             }
                         }
 
-                        if(isset($_POST['descrizione2'])) {
+                        if (isset($_POST['descrizione2'])) {
                             $Vinile->ChangeDescrizione($_POST['descrizione2']);
                         }
+                        echo $Vinile->toString();
+                        //echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">'.$Vinile->id .$Vinile->titolo. $Vinile->autore. $Vinile->img. $Vinile->descrizione. $Vinile->utente. $Vinile->id.'</div>';
 
-                        echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">'.$Vinile->id .$Vinile->titolo. $Vinile->autore. $Vinile->img. $Vinile->descrizione. $Vinile->utente. $Vinile->id.'</div>';
+                        $query = "UPDATE vinili SET titolo='".$newTitolo."', autore='".$newAutore."', immagine='".$uploadPath."', descrizione='".$newDescrizione."', user='".$newUser."' WHERE id=".$newId;
 
-                        $query = 'UPDATE vinili SET titolo=?, autore=?, immagine=?, descrizione=?, user=? WHERE id=?';
+                        /*$stmt = $conn->conn->prepare($query);
 
-                        $stmt = $conn->conn->prepare($query);
-                        if(!$stmt) {
-                            die("Errore nella preparazione della query: " . $conn->conn->error);
-                        }
-                        $stmt->bind_param('sssssi',  $Vinile->titolo, $Vinile->autore, $Vinile->img, $Vinile->descrizione, $Vinile->utente, $Vinile->id);
-                        $stmt->execute();
+                        $stmt->bind_param('sssssi', $Vinile->titolo, $Vinile->autore, $Vinile->img, $Vinile->descrizione, $Vinile->utente, $Vinile->id);
+                            $result = $stmt->execute();*/
+                        $result=$conn->conn->query($query);
+                        if ($result) {
+                            echo "Query di aggiornamento eseguita con successo.";
 
-                        if($stmt){
-                            echo '<div class="mx-48 bg-white">
+                            echo $Vinile->id."<br>".$Vinile->titolo."<br>".$Vinile->autore."<br>".$Vinile->img."<br>".$Vinile->descrizione."<br>".$Vinile->utente."<br>";
+
+                            /*echo '<div class="mx-48 bg-white">
                                 <div class="mx-auto font-bold text-6xl mt-8">
                                     IL TUO VINILE MODIFICATO
                                 </div>
                                 <div class="mx-96 my-5 w-3/4 flex flex rows">
-                                    <div class="w-80 max-h-80"> 
+                                    <div class="w-80 max-h-80">
                                     <img src="' . $Vinile->img . '" class="w-80 max-h-80 object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
                                     </div>
                                     <div class="w-auto h-auto mx-20">
                                         <div class="text-4xl font-bold text-center">' .
-                                            $Vinile->titolo . ' - ' . $Vinile->autore
-                                            .'</div>
+                                $Vinile->titolo . ' - ' . $Vinile->autore
+                                . '</div>
                                         <div class="text-xl">
                                             ' . $Vinile->descrizione . '
                                         </div>
-                                    </div>  
-                                  </div>';
+                                    </div>
+                                  </div>';*/
+                        } else {
+                            echo "Errore durante l'esecuzione della query: " ;// $stmt->error;
                         }
-                        else
-                            echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">errore nell\' edit dell\'immagine</div>';
                     }
-                    $ID=$Vinile->id;
-                    $Query = "SELECT * FROM vinili WHERE id='$ID';";
-
-                    $result = $conn->conn->query($Query);
-
-                    $prova = new CVinile( $id = "",
-                                            $img = "",
-                                            $titolo = "",
-                                            $autore = "",
-                                            $utente = "",
-                                            $descrizione = "");
-                    if($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc())
-                            $prova = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row['descrizione']);
-                        }
-                            echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">'.$prova->id .$prova->titolo. $prova->autore. $prova->img. $prova->descrizione. $prova->utente. $prova->id.'</div>';
-
-
-
-
                 ?>
 </body>
 </html>

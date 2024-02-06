@@ -53,7 +53,7 @@
 
                         $result = $stmt->execute();
 
-                        if($result === TRUE){
+                        if($result){
                             Header('Location: ./Login.php');
                             exit;
                         }
