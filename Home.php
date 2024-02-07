@@ -44,11 +44,6 @@
         </div>
     </nav>
 
-    <div>
-        <!--Barra di ricerca-->
-
-    </div>
-
 
     <div class="mx-48">
         <div class="mt-5 font-bold text-6xl">
@@ -86,11 +81,6 @@
                             <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
                                     <form action="./VinilePreview.php" method="POST">
                                         <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                        <input type="hidden" name="titolo" value="' . $Vinile->titolo . '">
-                                        <input type="hidden" name="autore" value="' . $Vinile->autore . '">
-                                        <input type="hidden" name="immagine" value="' . $Vinile->img . '">
-                                        <input type="hidden" name="utente" value="' . $Vinile->utente . '">
-                                        <input type="hidden" name="descrizione" value="' . $Vinile->descrizione . '">
                                         <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MOSTRA</button>
                                     </form>
                             </div>

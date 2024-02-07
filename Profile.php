@@ -76,20 +76,10 @@
                                     <form action="./VinilePreview.php" method="POST">
                                     
                                         <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                        <input type="hidden" name="titolo" value="' . $Vinile->titolo . '">
-                                        <input type="hidden" name="autore" value="' . $Vinile->autore . '">
-                                        <input type="hidden" name="immagine" value="' . $Vinile->img . '">
-                                        <input type="hidden" name="utente" value="' . $Vinile->utente . '">
-                                        <input type="hidden" name="descrizione" value="' . $Vinile->descrizione . '">
                                         <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MOSTRA</button>
                                     </form>
                                     <form action="EditVinile.php" method="POST">
                                         <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                        <input type="hidden" name="titolo" value="' . $Vinile->titolo . '">
-                                        <input type="hidden" name="autore" value="' . $Vinile->autore . '">
-                                        <input type="hidden" name="immagine" value="' . $Vinile->img . '">
-                                        <input type="hidden" name="utente" value="' . $Vinile->utente . '">
-                                        <input type="hidden" name="descrizione" value="' . $Vinile->descrizione . '">
                                         <button name="modifica" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MODIFICA</button>
                                     </form>
                             </div>
