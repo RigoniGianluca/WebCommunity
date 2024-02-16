@@ -30,6 +30,14 @@
                 <!-- Profile dropdown -->
                 <div class="relative ml-3">
                     <div class="flex space-x-4">
+                        <div class="flex flex-row">
+                            <form action="Ricerca.php" method="POST">
+                                <input class="h-8 w-25 rounded-l-3xl border-2 border-black" id="ricerca" name="ricerca">
+                                <button href="Ricerca.php" id="RicercaButton" name="RicercaButton">
+                                    <img class="h-8 w-8 rounded-e-3xl" src="./images/icon_ricerca.png">
+                                </button>
+                            </form>
+                        </div>
                         <a href="Profile.php" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                             <span class="absolute -inset-1.5"></span>
                             <span class="sr-only">Open user menu</span>
