@@ -30,8 +30,6 @@
                         <a href="EliminaProfilo.php" id="eliminaProfilo" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Elimina Account</a>
 
                         <a href="Profile.php" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                            <span class="absolute -inset-1.5"></span>
-                            <span class="sr-only">Open user menu</span>
                             <img class="h-8 w-8 rounded-full" src="https://img.favpng.com/1/4/11/portable-network-graphics-computer-icons-google-account-scalable-vector-graphics-computer-file-png-favpng-HScCJdtkakJXsS3T27RyikZiD.jpg" alt="">
                         </a>
 
@@ -74,21 +72,25 @@
                     echo '<div class="w-1/4 px-4 my-4 ">
                         <div class="relative group block">
                             <img src="' . $Vinile->img . '" class="w-full max-h-80 object-center object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
-                            <div class="absolute inset-0 pt-28 flex items-start justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
-                                    <form action="./VinilePreview.php" method="POST">
-                                        <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                        <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MOSTRA</button>
-                                    </form>
-                                    <form action="EditVinile.php" method="POST">
-                                        <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                        <button name="modifica" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MODIFICA</button>
-                                    </form>
+                            <div class="absolute inset-0 flex flex-col space-y-5 items-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
+                                    <div class="pt-20">
+                                        <form action="./VinilePreview.php" method="POST" class="">
+                                            <input type="hidden" name="id" value="' . $Vinile->id . '">
+                                            <button class="bg-gray-800/75 text-gray-300 hover:bg-gray-700 hover:text-white text-center h-10 px-2 mx-4 rounded-lg">MOSTRA</button>
+                                        </form>
                                     </div>
-                            <div class="absolute inset-0 pb-28 flex items-end justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
-                                    <form action="EliminaVinile.php" method="POST">
-                                        <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                        <button name="eliminaVinile" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">ELIMINA</button>
-                                    </form>' . '
+                                    <div>
+                                        <form action="EditVinile.php" method="POST">
+                                            <input type="hidden" name="id" value="' . $Vinile->id . '">
+                                            <button name="modifica" class="bg-gray-800/75 text-gray-300 hover:bg-gray-700 hover:text-white text-center h-10 px-2 mx-4 rounded-lg">MODIFICA</button>
+                                        </form>
+                                    </div>
+                                    <div>
+                                        <form action="EliminaVinile.php" method="POST">
+                                            <input type="hidden" name="id" value="' . $Vinile->id . '">
+                                            <button name="eliminaVinile" class="bg-gray-800/75 text-gray-300 hover:bg-gray-700 hover:text-white text-center h-10 px-2 mx-4 rounded-lg">ELIMINA</button>
+                                        </form>
+                                    </div>' . '
                             </div>
                             <div class="">
                                 <div class="border-2 border-gray-800 bg-gray-800 text-center text-white font-semibold text-xl">' . $Vinile->titolo . ' - ' . $Vinile->autore . '</div>
@@ -104,7 +106,7 @@
             }
             echo '</div>';
         } else {
-            echo '<div class="pt-5 pb-2 font-bold text-3xl">Non ci sono ancora vinili caricati</div>
+            echo '<div class="pt-5 pb-2 font-bold text-3xl text-black">Non hai ancora vinili caricati</div>
                         <div class="bg-teal-700 text-white border-2 rounded-lg border-gray-800 text-2xl font-semibold text-center w-48 h-10 hover:font-bold hover:bg-teal-700/75"><a href="./CaricaVinile.php">Carica un vinile</a></div>';
         }
     ?>
