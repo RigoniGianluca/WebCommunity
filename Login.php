@@ -29,10 +29,15 @@
             else{
                 $username = $_POST['username'];
                 $password = $_POST['password'];
+                $ashedpw = "";
 
-                $query = $conn->conn->query("SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+                $query = $conn->conn->query("SELECT * FROM users WHERE username = '$username'");
                 // ... = $query->fetch_assoc();     //risultato della query
                 if($query->num_rows>0) {
+                    $result = $query->fetch_assoc();
+                    $ashedpw = $result['password'];
+
+                    if(password_verify($password, $ashedpw))
                     //Accesso consentito
                     if (!isset($_COOKIE['utente'])) {
                         $cookie_name = 'utente';

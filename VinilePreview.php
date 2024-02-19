@@ -59,30 +59,28 @@
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $id = $_POST['id'];
-                $result = $conn->conn->query("SELECT * FROM vinili");
+                $result = $conn->conn->query("SELECT * FROM vinili WHERE id=$id");
                 if ($result->num_rows > 0) {
-                $x = 0;
-                echo '<div class="flex flex-wrap mx-4 ">';
-                while ($row = $result->fetch_assoc()) {
-                    $Vinile = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row["descrizione"]);}}
+                    $x = 0;
+                    echo '<div class="flex flex-wrap mx-4 ">';
+                    $row = $result->fetch_assoc();
+                    $Vinile = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row["descrizione"]);
 
-                echo '<div class="mx-96 my-5 w-3/4 flex flex rows">
+                    echo '<div class="mx-96 my-5 w-3/4 flex flex rows">
                         <div class="w-80 max-h-80"> 
                         <img src="' . $Vinile->img . '" class="w-80 max-h-80 object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
                         </div>
                         <div class="w-auto h-auto mx-20">
                             <div class="text-4xl font-bold text-center">' .
-                            $Vinile->titolo . ' - ' . $Vinile->autore
-                            .'</div>
+                        $Vinile->titolo . ' - ' . $Vinile->autore
+                        . '</div>
                             <div class="text-xl">
                                 ' . $Vinile->descrizione . '
                             </div>
                         </div>  
-                      </div>
-            
-            ';
+                      </div>';
+                }
             }
-
         ?>
     </div>
 

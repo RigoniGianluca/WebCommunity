@@ -47,9 +47,10 @@
                         echo '<div class="bg-slate-950 text-white font-bold text-xl text-center">Nome utente o email già in uso</div>';
                     }
                     else {
+                        $hashpassword = password_hash($password, PASSWORD_DEFAULT);
                         $query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
                         $stmt = $conn->conn->prepare($query);
-                        $stmt->bind_param('sss', $username, $password, $email);
+                        $stmt->bind_param('sss', $username, $hashpassword, $email);
 
                         $result = $stmt->execute();
 
