@@ -16,4 +16,4 @@ class DBConn
 
         $this->conn = new mysqli($this->host, $this->username, $this->password);
     }
-}
+}   

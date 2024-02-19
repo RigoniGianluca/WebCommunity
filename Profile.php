@@ -106,7 +106,7 @@
             }
             echo '</div>';
         } else {
-            echo '<div class="pt-5 pb-2 font-bold text-3xl text-black">Non hai ancora vinili caricati</div>
+            echo '<div class="pt-5 pb-2 font-bold text-3xl">Non ci sono ancora vinili caricati</div>
                         <div class="bg-teal-700 text-white border-2 rounded-lg border-gray-800 text-2xl font-semibold text-center w-48 h-10 hover:font-bold hover:bg-teal-700/75"><a href="./CaricaVinile.php">Carica un vinile</a></div>';
         }
     ?>

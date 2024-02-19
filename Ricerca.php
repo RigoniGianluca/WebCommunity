@@ -60,40 +60,41 @@
     $conn = new DBConn();
     $conn->conn->query("USE WebCommunity");
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        if(isset($_POST['RicercaButton'])){
-            $ricerca = '%'.$_POST['ricerca'].'%';
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_POST['RicercaButton'])) {
+            $ricerca = '%' . $_POST['ricerca'] . '%';
 
-            $query = "SELECT * FROM vinili WHERE titolo LIKE ?";
-            $stmt = $conn->conn->prepare($query);
-            $stmt->bind_param('s', $ricerca);
-            $result = $stmt->execute();
-            $result = $stmt->get_result();
-            $stmt->close();
+            //QUERY 1
+            $query1 = "SELECT * FROM vinili WHERE titolo LIKE ?";
+            $stmt1 = $conn->conn->prepare($query1);
+            $stmt1->bind_param('s', $ricerca);
+            $result1 = $stmt1->execute();
+            $result1 = $stmt1->get_result();
+            $stmt1->close();
 
-            if ($result->num_rows > 0) {
-                $x = 0;
-                echo '<div class="flex flex-wrap mx-4">';
-                while ($row = $result->fetch_assoc()) {
-                    $Vinile = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row['descrizione']);
-                    echo '<div class="w-1/4 px-4 my-4 ">
-                        <div class="relative group block">
-                            <img src="' . $Vinile->img . '" class="w-full max-h-80 object-center object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
-                            <div class="absolute inset-0 pt-28 flex items-start justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
+            //QUERY2
+            $query2 = "SELECT * FROM vinili WHERE autore LIKE ?";
+            $stmt2 = $conn->conn->prepare($query2);
+            $stmt2->bind_param('s', $ricerca);
+            $result2 = $stmt2->execute();
+            $result2 = $stmt2->get_result();
+            $stmt2->close();
+
+            if ($result1->num_rows > 0 || $result2->num_rows > 0 ){
+                if ($result1->num_rows > 0) {
+                    echo '<div class="border border-white bg-gray-800 text-white font-bold text-xl text-center">Ricerca per titolo</div>';
+                    $x = 0;
+                    echo '<div class="flex flex-wrap mx-4">';
+                    while ($row = $result1->fetch_assoc()) {
+                        $Vinile = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row['descrizione']);
+                        echo '<div class="w-1/4 px-4 my-4 ">
+                                <div class="relative group block">
+                            <img src="' . $Vinile->img . '" class="w-full max-h-80 object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
                                     <form action="./VinilePreview.php" method="POST">
                                         <input type="hidden" name="id" value="' . $Vinile->id . '">
                                         <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MOSTRA</button>
                                     </form>
-                                    <form action="EditVinile.php" method="POST">
-                                        <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                        <button name="modifica" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MODIFICA</button>
-                                    </form>
-                                    </div>
-                            <div class="absolute inset-0 pb-28 flex items-end justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
-                                    <form action="EliminaVinile.php" method="POST">
-                                        <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                        <button name="eliminaVinile" class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">ELIMINA</button>
-                                    </form>' . '
                             </div>
                             <div class="">
                                 <div class="border-2 border-gray-800 bg-gray-800 text-center text-white font-semibold text-xl">' . $Vinile->titolo . ' - ' . $Vinile->autore . '</div>
@@ -101,16 +102,46 @@
                         </div>
                     </div>';
 
-                    $x++;
-                    if ($x % 4 == 0) {
-                        echo '</div><div class="flex flex-wrap -mx-4">';
+                        $x++;
+                        if ($x % 4 == 0) {
+                            echo '</div><div class="flex flex-wrap -mx-4">';
+                        }
                     }
                 }
+                echo '</div>';
+
+                if ($result2->num_rows > 0) {
+                    echo '<div class="border border-white bg-gray-800 text-white font-bold text-xl text-center">Ricerca per autore</div>';
+                    $x = 0;
+                    echo '<div class="flex flex-wrap mx-4">';
+                    while ($row = $result2->fetch_assoc()) {
+                        $Vinile = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row['descrizione']);
+                        echo '<div class="w-1/4 px-4 my-4 ">
+                                <div class="relative group block">
+                            <img src="' . $Vinile->img . '" class="w-full max-h-80 object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
+                                    <form action="./VinilePreview.php" method="POST">
+                                        <input type="hidden" name="id" value="' . $Vinile->id . '">
+                                        <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MOSTRA</button>
+                                    </form>
+                            </div>
+                            <div class="">
+                                <div class="border-2 border-gray-800 bg-gray-800 text-center text-white font-semibold text-xl">' . $Vinile->titolo . ' - ' . $Vinile->autore . '</div>
+                            </div>
+                        </div>
+                    </div>';
+
+                        $x++;
+                        if ($x % 4 == 0) {
+                            echo '</div><div class="flex flex-wrap -mx-4">';
+                        }
+                    }
+                }
+                echo '</div>';
             }
             else{
-                echo 'numero rows = 0';
+                echo '</div><div class="bg-gray-800 text-white font-bold text-2xl text-center w-full">Non sono stati trovati vinili inerenti alla ricerca</div>';
             }
-            echo '</div>';
         }
     }
 ?>
