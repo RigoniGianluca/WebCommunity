@@ -76,7 +76,7 @@
                                     <div class="pt-20">
                                         <form action="./VinilePreview.php" method="POST" class="">
                                             <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                            <button class="bg-gray-800/75 text-gray-300 hover:bg-gray-700 hover:text-white text-center h-10 px-2 mx-4 rounded-lg">MOSTRA</button>
+                                            <button class="bg-gray-800/75 text-gray-300 hover:bg-gray-700 hover:text-white text-center h-10 px-2 mx-4 rounded-lg" name="mostra">MOSTRA</button>
                                         </form>
                                     </div>
                                     <div>
@@ -111,5 +111,22 @@
         }
     ?>
     </div>
+    <footer>
+        <div class="w-full h-32 bg-gray-800 absolute bottom-0">
+            <div class="mx-12 mt-5">
+                <label class="text-white font-bold text-lg">WEB DEVELOPER -</label>
+                <label class="text-white text-lg">Rigoni Gianluca</label>
+            </div>
+            <div class="mx-12">
+                <label class="text-white font-bold text-lg">Contatti -</label>
+                <label class="text-white text-lg">1234567890</label>
+            </div>
+            <div class="mx-12 flex flex-rows">
+                <label class="text-white font-bold text-lg">Social - </label>
+                <label class="mx-1 text-white text-lg">@gigilucaa</label>
+                <img src="./images/insta-logoo.png" class="mx-5 w-10 h-10">
+            </div>
+        </div>
+    </footer>
     </body>
 </html>

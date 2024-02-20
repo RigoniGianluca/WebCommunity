@@ -34,7 +34,7 @@
                             <form action="Ricerca.php" method="POST">
                                 <input class="h-8 w-25 rounded-l-3xl border-2 border-black" id="ricerca" name="ricerca">
                                 <button href="Ricerca.php" id="RicercaButton" name="RicercaButton">
-                                    <img class="h-8 w-8 rounded-e-3xl" src="./images/icon_ricerca.png">
+                                    <img class="h-8 w-8 rounded-e-3xl " src="./images/icon_ricerca.png">
                                 </button>
                             </form>
                         </div>
@@ -74,6 +74,7 @@
                                 immagine VARCHAR(225) NOT NULL,
                                 descrizione VARCHAR(999) NOT NULL,
                                 user VARCHAR(40) NOT NULL,
+                                FOREIGN KEY (user) REFERENCES users (username),
                                 PRIMARY KEY (id))");
 
             $result = $conn->conn->query("SELECT * FROM vinili");
@@ -89,7 +90,7 @@
                             <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
                                     <form action="./VinilePreview.php" method="POST">
                                         <input type="hidden" name="id" value="' . $Vinile->id . '">
-                                        <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex">MOSTRA</button>
+                                        <button class="mx-4 bg-gray-800/75 text-white text-center p-4 rounded-lg flex" id="mostra" name="mostra">MOSTRA</button>
                                     </form>
                             </div>
                             <div class="">
@@ -112,6 +113,22 @@
 
             ?>
         </div>
-
+    <footer>
+        <div class="w-full h-32 bg-gray-800 absolute bottom-0">
+            <div class="mx-12 mt-5">
+                <label class="text-white font-bold text-lg">WEB DEVELOPER -</label>
+                <label class="text-white text-lg">Rigoni Gianluca</label>
+            </div>
+            <div class="mx-12">
+                <label class="text-white font-bold text-lg">Contatti -</label>
+                <label class="text-white text-lg">1234567890</label>
+            </div>
+            <div class="mx-12 flex flex-rows">
+                <label class="text-white font-bold text-lg">Social - </label>
+                <label class="mx-1 text-white text-lg">@gigilucaa</label>
+                <img src="./images/insta-logoo.png" class="mx-5 w-10 h-10">
+            </div>
+        </div>
+    </footer>
     </body>
 </html>

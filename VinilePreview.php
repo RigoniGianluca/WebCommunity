@@ -57,34 +57,105 @@
         $conn->conn->query("USE WebCommunity");
 
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if(isset($_POST['mostra']))
+                {
+                    $id = $_POST['id'];
+                    $result = $conn->conn->query("SELECT * FROM vinili WHERE id=$id");
+                    if ($result->num_rows > 0) {
+                        $x = 0;
+                        echo '<div class="flex flex-wrap mx-4 ">';
+                        $row = $result->fetch_assoc();
+                        $Vinile = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row["descrizione"]);
 
-                $id = $_POST['id'];
-                $result = $conn->conn->query("SELECT * FROM vinili WHERE id=$id");
-                if ($result->num_rows > 0) {
-                    $x = 0;
-                    echo '<div class="flex flex-wrap mx-4 ">';
-                    $row = $result->fetch_assoc();
-                    $Vinile = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row["descrizione"]);
-
-                    echo '<div class="mx-96 my-5 w-3/4 flex flex rows">
-                        <div class="w-80 max-h-80"> 
-                        <img src="' . $Vinile->img . '" class="w-80 max-h-80 object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
-                        </div>
-                        <div class="w-auto h-auto mx-20">
-                            <div class="text-4xl font-bold text-center">' .
-                        $Vinile->titolo . ' - ' . $Vinile->autore
-                        . '</div>
-                            <div class="text-xl">
-                                ' . $Vinile->descrizione . '
+                        echo '<div class="mx-96 my-5 w-3/4 flex flex rows">
+                            <div class="w-80 max-h-80"> 
+                            <img src="' . $Vinile->img . '" class="w-80 max-h-80 object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
                             </div>
-                        </div>  
-                      </div>';
+                            <div class="w-auto h-auto mx-20">
+                                <div class="text-4xl font-bold text-center">' .
+                            $Vinile->titolo . ' - ' . $Vinile->autore
+                            . '</div>
+                                <div class="text-xl">
+                                    ' . $Vinile->descrizione . '
+                                </div>
+                            </div>  
+                          </div>';
+                    }
+
+
+                }
+
+                if (isset($_POST['modifica2'])) {
+                    $id = $_POST['id'];
+                    $query = "SELECT * FROM vinili WHERE id='$id'";
+                    $result = $conn->conn->query($query);
+
+                    if ($result->num_rows > 0) {
+                        $x = 0;
+                        echo '<div class="flex flex-wrap mx-4 ">';
+                        while ($row = $result->fetch_assoc()) {
+                            $Vinile = new CVinile($row["id"], $row["immagine"], $row["titolo"], $row["autore"], $row["user"], $row["descrizione"]);
+                        }
+
+                        $Vinile->ChangeAutore($_POST['autore2']);//autore
+                        if(isset($_POST['immagine2'])) {
+                            if ($_FILES['immagine2']['error'] === UPLOAD_ERR_OK) {
+                                $uploadDir = 'images';
+                                $uploadPath = $uploadDir . '/' . basename($_FILES['immagine2']['name']);
+                                move_uploaded_file($_FILES['immagine2']['tmp_name'], $uploadPath);
+                                $Vinile->ChangeImg($uploadPath);//immagine
+                            } else {
+                                echo '<div class="bg-gray-800 text-white font-bold text-xl text-center">Errore nel caricamento dell\'immagine</div>';
+                            }
+                        }
+                        $Vinile->ChangeDescrizione($_POST['descrizione2']);//descrizione
+                        $query = "UPDATE vinili SET autore=?, immagine=?, descrizione=?, user=? WHERE id=?";
+
+                        $stmt = $conn->conn->prepare($query);
+
+                        $stmt->bind_param('ssssi', $Vinile->autore, $Vinile->img, $Vinile->descrizione, $Vinile->utente, $Vinile->id);
+                        $result = $stmt->execute();
+                        if ($result) {
+
+                            echo '<div class="mx-96 my-5 w-3/4 flex flex rows">
+                            <div class="w-80 max-h-80"> 
+                            <img src="' . $Vinile->img . '" class="w-80 max-h-80 object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-30">
+                            </div>
+                            <div class="w-auto h-auto mx-20">
+                                <div class="text-4xl font-bold text-center">' .
+                                $Vinile->titolo . ' - ' . $Vinile->autore
+                                . '</div>
+                                <div class="text-xl">
+                                    ' . $Vinile->descrizione . '
+                                </div>
+                            </div>  
+                          </div>';
+                        } else {
+                            echo "Errore durante l'esecuzione della query: ";// $stmt->error;
+                        }
+                    }
                 }
             }
         ?>
     </div>
 
-
+    <footer>
+        <div class="w-full h-32 bg-gray-800 absolute bottom-0">
+            <div class="mx-12 mt-5">
+                <label class="text-white font-bold text-lg">WEB DEVELOPER -</label>
+                <label class="text-white text-lg">Rigoni Gianluca</label>
+            </div>
+            <div class="mx-12">
+                <label class="text-white font-bold text-lg">Contatti -</label>
+                <label class="text-white text-lg">1234567890</label>
+            </div>
+            <div class="mx-12 flex flex-rows">
+                <label class="text-white font-bold text-lg">Social - </label>
+                <label class="mx-1 text-white text-lg">@gigilucaa</label>
+                <img src="./images/insta-logoo.png" class="mx-5 w-10 h-10">
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

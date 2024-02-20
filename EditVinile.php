@@ -74,11 +74,10 @@
                                     STAI MODIFICANDO ' . strtoupper($Vinile->titolo) . '
                                 </div>
                                 <div class="max-w-xl py-16">
-                                <form action="./UpdateVinile.php" method="POST" enctype="multipart/form-data" class="border-2 rounded border-black">
+                                <form action="./VinilePreview.php" method="POST" enctype="multipart/form-data" class="border-2 rounded border-black">
                                     <div class="py-5 mx-5 flex flex-col space-y-4">
                                         <input type="hidden" name="id" value="'.$Vinile->id.'"> 
-                                        <label for="titolo" class="text-lg">Titolo</label>
-                                        <input type="text" id="titolo2" name="titolo2" class="border border-slate-400 rounded-md px-3 py-2" value="'.$Vinile->titolo.'">
+                                        <label for="titolo" class="text-center text-lg border-2 border-gray-300 rounded-lg w-auto">' . $Vinile->titolo . '</label>
                         
                                         <label class="text-lg">Autore</label>
                                         <input type="text" id="autore2" name="autore2" class="border border-slate-400 rounded-md px-3 py-2" value="'.$Vinile->autore.'">
@@ -89,7 +88,7 @@
                                         <label for="image" class="text-lg">Carica immagine</label>
                                         <input type="file" id="immagine2" name="immagine2" accept="image/jfif, image/png, image/jpeg" class="border border-slate-400 rounded-md px-3 py-2">
                         
-                                        <button type="submit" name="modifica2" class="bg-gray-900 text-white rounde  d-md px-4 py-2 font-semibold text-xl border border-slate-400 rounded-md hover:bg-gray-700/100">Carica il tuo vinile</button>
+                                        <button type="submit" name="modifica2" class="bg-gray-900 text-white rounde  d-md px-4 py-2 font-semibold text-xl border border-slate-400 rounded-md hover:bg-gray-700/100">Modifica il vinile</button>
                                     </div>
                                 </form>
                             </div>';
